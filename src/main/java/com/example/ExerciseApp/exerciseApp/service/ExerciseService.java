@@ -13,4 +13,6 @@ public interface ExerciseService {
     ExerciseResponse getExerciseById(Long id);
 
     boolean deleteExerciseById(Long id);
+
+    boolean deleteExerciseByName(String name);
 }

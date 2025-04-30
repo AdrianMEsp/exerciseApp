@@ -1,5 +1,6 @@
 package com.example.ExerciseApp.exerciseApp.service.impl;
 
+import com.example.ExerciseApp.exerciseApp.exceptions.ExerciseNotFoundName;
 import com.example.ExerciseApp.exerciseApp.model.Exercise;
 import com.example.ExerciseApp.exerciseApp.model.request.ExerciseDto;
 import com.example.ExerciseApp.exerciseApp.model.response.ExerciseResponse;
@@ -41,6 +42,24 @@ public class ExerciseServiceImpl implements ExerciseService {
         ExerciseResponse exerciseResponse = getExerciseById(id);
         if (exerciseResponse != null){
             this.exerciseRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    public Exercise getExerciseByName(String name){
+        return this.exerciseRepository.findByNameIgnoreCase(name)
+                .orElseThrow(() -> new ExerciseNotFoundName(name));
+
+        //return mapToResponse(found);
+    }
+
+
+    @Override
+    public boolean deleteExerciseByName(String name){
+        Exercise exercise = getExerciseByName(name);
+        if (exercise != null) {
+            this.exerciseRepository.deleteById(exercise.getId());
             return true;
         }
         return false;

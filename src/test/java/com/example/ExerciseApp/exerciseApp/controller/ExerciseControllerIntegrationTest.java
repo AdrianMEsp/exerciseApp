@@ -52,7 +52,7 @@ public class ExerciseControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("Test delete existing exercise")
+    @DisplayName("Test delete existing exercise by id")
     void testDeleteExistingExerciseById() throws Exception{
         Long exerciseId = 1L;
         when(exerciseService.deleteExerciseById(eq(exerciseId)))
@@ -67,7 +67,7 @@ public class ExerciseControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("Test delete NOT existing exercise")
+    @DisplayName("Test delete NOT existing exercise by id")
     void testDeleteNotExistingExerciseById() throws Exception{
         Long exerciseId = 1L;
         when(exerciseService.deleteExerciseById(eq(exerciseId)))
@@ -80,5 +80,36 @@ public class ExerciseControllerIntegrationTest {
         verify(exerciseService,times(1))
                 .deleteExerciseById(eq(exerciseId));
     }
+
+    @Test
+    @DisplayName("Test delete existing exercise by name")
+    void testDeleteExistingExerciseByName() throws Exception{
+        String exerciseName = "Burpees";
+        when(exerciseService.deleteExerciseByName(eq(exerciseName)))
+                .thenReturn(true);
+
+        mockMvc.perform(delete("/api/v1/exercise/name/{name}",exerciseName)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(exerciseService,times(1))
+                .deleteExerciseByName(eq(exerciseName));
+    }
+
+    @Test
+    @DisplayName("Test delete NOT existing exercise by name")
+    void testDeleteNotExistingExerciseByName() throws Exception{
+        String exerciseName = "Burpees";
+        when(exerciseService.deleteExerciseByName(eq(exerciseName)))
+                .thenReturn(false);
+
+        mockMvc.perform(delete("/api/v1/exercise/name/{name}",exerciseName)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
+        verify(exerciseService,times(1))
+                .deleteExerciseByName(eq(exerciseName));
+    }
+
 
 }

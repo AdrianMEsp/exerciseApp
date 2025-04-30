@@ -1,6 +1,7 @@
 package com.example.ExerciseApp.exerciseApp.controller;
 
 import com.example.ExerciseApp.exerciseApp.exceptions.ExerciseNotFoundId;
+import com.example.ExerciseApp.exerciseApp.exceptions.ExerciseNotFoundName;
 import com.example.ExerciseApp.exerciseApp.model.Exercise;
 import com.example.ExerciseApp.exerciseApp.model.request.ExerciseDto;
 import com.example.ExerciseApp.exerciseApp.model.response.ExerciseResponse;
@@ -41,6 +42,20 @@ public class ExerciseController {
             return ResponseEntity.ok().build();
         } catch (ExerciseNotFoundId e) {
             throw new ExerciseNotFoundId(id);
+        }
+    }
+
+    @DeleteMapping("/name/{name}")
+    public ResponseEntity<Void> deleteExerciseByName(@PathVariable String name){
+        try{
+            boolean deleted = this.exerciseService.deleteExerciseByName(name);
+            if (! deleted){
+                return ResponseEntity.notFound().build();
+            }
+            log.info("Exercise {} deleted",name);
+            return ResponseEntity.ok().build();
+        }catch (ExerciseNotFoundName e){
+            throw new ExerciseNotFoundName(name);
         }
     }
 }
