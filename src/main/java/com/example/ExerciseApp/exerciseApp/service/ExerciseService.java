@@ -21,4 +21,5 @@ public interface ExerciseService {
 
     ExerciseResponse updateExerciseByName(String name, ExerciseDto modifiedExercise);
 
+    ExerciseResponse getExerciseByName(String name);
 }

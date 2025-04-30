@@ -12,6 +12,9 @@ public class ExerciseDto {
     private int repetitionsOrSeconds;
     private double weight;
 
+    public ExerciseDto() {
+    }
+
     public ExerciseDto(String name, int series, int repetitionsOrSeconds, double weight) {
         this.name = name;
         this.series = series;

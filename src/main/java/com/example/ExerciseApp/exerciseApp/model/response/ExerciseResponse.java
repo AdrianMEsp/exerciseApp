@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
+@Setter
 @ToString
 public class ExerciseResponse {
     private String name;
@@ -12,10 +13,14 @@ public class ExerciseResponse {
     private int repetitionsOrSeconds;
     private double weight;
 
+    public ExerciseResponse() {
+    }
+
     public ExerciseResponse(String name, int series, int repetitionsOrSeconds, double weight) {
         this.name = name;
         this.series = series;
         this.repetitionsOrSeconds = repetitionsOrSeconds;
         this.weight = weight;
     }
+
 }

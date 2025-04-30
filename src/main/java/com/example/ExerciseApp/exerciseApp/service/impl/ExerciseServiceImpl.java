@@ -50,14 +50,15 @@ public class ExerciseServiceImpl implements ExerciseService {
         return false;
     }
 
-    public Exercise getExerciseByName(String name){
+
+    public Exercise getByName(String name){
         return this.exerciseRepository.findByNameIgnoreCase(name)
                 .orElseThrow(() -> new ExerciseNotFoundName(name));
     }
 
     @Override
     public boolean deleteExerciseByName(String name){
-        Exercise exercise = getExerciseByName(name);
+        Exercise exercise = getByName(name);
         if (exercise != null) {
             this.exerciseRepository.deleteById(exercise.getId());
             return true;
@@ -83,7 +84,13 @@ public class ExerciseServiceImpl implements ExerciseService {
             found.setWeight(modifiedExercise.getWeight());
             this.exerciseRepository.save(found);
             return mapToResponse(found);
+    }
 
+    @Override
+    public ExerciseResponse getExerciseByName(String name){
+        Exercise exercise = getByName(name);
+        if (exercise != null) return mapToResponse(exercise);
+        return null;
     }
 
 

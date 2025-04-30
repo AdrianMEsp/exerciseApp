@@ -60,9 +60,24 @@ public class ExerciseController {
     @GetMapping
     public List<ExerciseResponse> getAllExercises(){
         try{
-            return this.exerciseService.getAllExercises();
+            List<ExerciseResponse> exercises = this.exerciseService.getAllExercises();
+            if (exercises != null) {
+                log.info("Found {} exercises", exercises.size());
+                return exercises;
+            }
+            return null;
         }catch (Exception e){
             log.error("Error obtaining exercises ");
+            throw e;
+        }
+    }
+
+    @GetMapping("/{name}")
+    public ExerciseResponse getExerciseByName(@PathVariable String name){
+        try{
+            return this.exerciseService.getExerciseByName(name);
+        }catch (Exception e){
+            log.error("Error obtaining exercise {}",name);
             throw e;
         }
     }

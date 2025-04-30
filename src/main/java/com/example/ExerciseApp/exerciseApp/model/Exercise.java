@@ -19,6 +19,9 @@ public class Exercise {
     private int repetitionsOrSeconds;
     private double weight;
 
+    public Exercise() {
+    }
+
     public Exercise(String name, int series, int repetitionsOrSeconds, double weight) {
         this.name = name;
         this.series = series;
