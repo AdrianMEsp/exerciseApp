@@ -1,6 +1,7 @@
 package com.example.ExerciseApp.exerciseApp.controller;
 
 import com.example.ExerciseApp.exerciseApp.model.request.ExerciseDto;
+import com.example.ExerciseApp.exerciseApp.model.response.ExerciseResponse;
 import com.example.ExerciseApp.exerciseApp.service.ExerciseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import java.util.Arrays;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -109,6 +111,40 @@ public class ExerciseControllerIntegrationTest {
 
         verify(exerciseService,times(1))
                 .deleteExerciseByName(eq(exerciseName));
+    }
+
+    @Test
+    @DisplayName("Test get all exercises WITH exercises")
+    void testGetAllExercise() throws Exception{
+        ExerciseResponse exe1 = new ExerciseResponse("Run",1,6000);
+        ExerciseResponse exe2 = new ExerciseResponse("Bicycle",1,3000);
+
+        when(exerciseService.getAllExercises())
+                .thenReturn(Arrays.asList(exe1,exe2));
+
+        mockMvc.perform(get("/api/v1/exercise")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name")
+                        .value(exe1.getName()));
+
+        verify(exerciseService,times(1))
+                .getAllExercises();
+    }
+
+    @Test
+    @DisplayName("Test get all exercises WITHOUT exercises")
+    void testGetAllExerciseEmpty() throws Exception{
+
+        when(exerciseService.getAllExercises())
+                .thenReturn(null);
+
+        mockMvc.perform(get("/api/v1/exercise")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(exerciseService,times(1))
+                .getAllExercises();
     }
 
 

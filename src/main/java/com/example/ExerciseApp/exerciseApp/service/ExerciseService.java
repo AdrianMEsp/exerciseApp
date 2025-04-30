@@ -4,6 +4,7 @@ import com.example.ExerciseApp.exerciseApp.model.Exercise;
 import com.example.ExerciseApp.exerciseApp.model.request.ExerciseDto;
 import com.example.ExerciseApp.exerciseApp.model.response.ExerciseResponse;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ExerciseService {
@@ -15,4 +16,6 @@ public interface ExerciseService {
     boolean deleteExerciseById(Long id);
 
     boolean deleteExerciseByName(String name);
+
+    List<ExerciseResponse> getAllExercises();
 }

@@ -9,7 +9,9 @@ import com.example.ExerciseApp.exerciseApp.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
@@ -50,10 +52,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     public Exercise getExerciseByName(String name){
         return this.exerciseRepository.findByNameIgnoreCase(name)
                 .orElseThrow(() -> new ExerciseNotFoundName(name));
-
-        //return mapToResponse(found);
     }
-
 
     @Override
     public boolean deleteExerciseByName(String name){
@@ -63,6 +62,13 @@ public class ExerciseServiceImpl implements ExerciseService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<ExerciseResponse> getAllExercises(){
+        return this.exerciseRepository.findAll().stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
 
 

@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -56,6 +57,16 @@ public class ExerciseController {
             return ResponseEntity.ok().build();
         }catch (ExerciseNotFoundName e){
             throw new ExerciseNotFoundName(name);
+        }
+    }
+
+    @GetMapping
+    public List<ExerciseResponse> getAllExercises(){
+        try{
+            return this.exerciseService.getAllExercises();
+        }catch (Exception e){
+            log.error("Error obtaining exercises ");
+            throw e;
         }
     }
 }
