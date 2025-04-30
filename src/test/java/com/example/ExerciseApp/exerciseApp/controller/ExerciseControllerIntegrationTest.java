@@ -51,4 +51,34 @@ public class ExerciseControllerIntegrationTest {
                 .addExercise(any(ExerciseDto.class));
     }
 
+    @Test
+    @DisplayName("Test delete existing exercise")
+    void testDeleteExistingExerciseById() throws Exception{
+        Long exerciseId = 1L;
+        when(exerciseService.deleteExerciseById(eq(exerciseId)))
+                .thenReturn(true);
+
+        mockMvc.perform(delete("/api/v1/exercise/id/{id}",exerciseId)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(exerciseService,times(1))
+        .deleteExerciseById(eq(exerciseId));
+    }
+
+    @Test
+    @DisplayName("Test delete NOT existing exercise")
+    void testDeleteNotExistingExerciseById() throws Exception{
+        Long exerciseId = 1L;
+        when(exerciseService.deleteExerciseById(eq(exerciseId)))
+                .thenReturn(false);
+
+        mockMvc.perform(delete("/api/v1/exercise/id/{id}",exerciseId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
+        verify(exerciseService,times(1))
+                .deleteExerciseById(eq(exerciseId));
+    }
+
 }
