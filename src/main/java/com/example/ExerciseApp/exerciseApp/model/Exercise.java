@@ -17,10 +17,12 @@ public class Exercise {
     private String name;
     private int series;
     private int repetitionsOrSeconds;
+    private double weight;
 
-    public Exercise(String name, int series, int repetitionsOrSeconds) {
+    public Exercise(String name, int series, int repetitionsOrSeconds, double weight) {
         this.name = name;
         this.series = series;
         this.repetitionsOrSeconds = repetitionsOrSeconds;
+        this.weight = weight;
     }
 }

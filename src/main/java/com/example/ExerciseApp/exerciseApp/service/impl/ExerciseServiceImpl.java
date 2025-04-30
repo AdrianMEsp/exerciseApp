@@ -26,7 +26,8 @@ public class ExerciseServiceImpl implements ExerciseService {
     public void addExercise(ExerciseDto exerciseDto) {
         Exercise exercise = new Exercise(exerciseDto.getName(),
                 exerciseDto.getSeries(),
-                exerciseDto.getRepetitionsOrSeconds());
+                exerciseDto.getRepetitionsOrSeconds(),
+                exerciseDto.getWeight());
         this.exerciseRepository.save(exercise);
     }
 
@@ -71,12 +72,27 @@ public class ExerciseServiceImpl implements ExerciseService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public ExerciseResponse updateExerciseByName(String name, ExerciseDto modifiedExercise){
+        Exercise found = this.exerciseRepository.findByNameIgnoreCase(name)
+                .orElseThrow(() -> new ExerciseNotFoundName(name));
+
+            found.setName(modifiedExercise.getName());
+            found.setSeries(modifiedExercise.getSeries());
+            found.setRepetitionsOrSeconds(modifiedExercise.getRepetitionsOrSeconds());
+            found.setWeight(modifiedExercise.getWeight());
+            this.exerciseRepository.save(found);
+            return mapToResponse(found);
+
+    }
+
 
     private ExerciseResponse mapToResponse(Exercise exercise){
         return new ExerciseResponse(
                 exercise.getName(),
                 exercise.getSeries(),
-                exercise.getRepetitionsOrSeconds()
+                exercise.getRepetitionsOrSeconds(),
+                exercise.getWeight()
         );
     }
 

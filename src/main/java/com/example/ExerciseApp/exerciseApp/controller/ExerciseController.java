@@ -2,7 +2,6 @@ package com.example.ExerciseApp.exerciseApp.controller;
 
 import com.example.ExerciseApp.exerciseApp.exceptions.ExerciseNotFoundId;
 import com.example.ExerciseApp.exerciseApp.exceptions.ExerciseNotFoundName;
-import com.example.ExerciseApp.exerciseApp.model.Exercise;
 import com.example.ExerciseApp.exerciseApp.model.request.ExerciseDto;
 import com.example.ExerciseApp.exerciseApp.model.response.ExerciseResponse;
 import com.example.ExerciseApp.exerciseApp.service.ExerciseService;
@@ -11,9 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -67,6 +64,19 @@ public class ExerciseController {
         }catch (Exception e){
             log.error("Error obtaining exercises ");
             throw e;
+        }
+    }
+
+    @PutMapping("/{name}")
+    public ResponseEntity<Void> updateExerciseByName(@PathVariable String name,
+                                                     @RequestBody ExerciseDto modifiedExercise){
+        try {
+            if (this.exerciseService.updateExerciseByName(name,modifiedExercise) != null){
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

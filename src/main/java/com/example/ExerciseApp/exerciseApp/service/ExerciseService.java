@@ -18,4 +18,7 @@ public interface ExerciseService {
     boolean deleteExerciseByName(String name);
 
     List<ExerciseResponse> getAllExercises();
+
+    ExerciseResponse updateExerciseByName(String name, ExerciseDto modifiedExercise);
+
 }

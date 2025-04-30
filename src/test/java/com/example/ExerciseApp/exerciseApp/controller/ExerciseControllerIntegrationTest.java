@@ -36,7 +36,7 @@ public class ExerciseControllerIntegrationTest {
 
     @BeforeEach
     void setUp(){
-        exercise = new ExerciseDto("Burpees",3,15);
+        exercise = new ExerciseDto("Burpees",3,15,0);
     }
 
     @Test
@@ -116,8 +116,8 @@ public class ExerciseControllerIntegrationTest {
     @Test
     @DisplayName("Test get all exercises WITH exercises")
     void testGetAllExercise() throws Exception{
-        ExerciseResponse exe1 = new ExerciseResponse("Run",1,6000);
-        ExerciseResponse exe2 = new ExerciseResponse("Bicycle",1,3000);
+        ExerciseResponse exe1 = new ExerciseResponse("Run",1,6000,0);
+        ExerciseResponse exe2 = new ExerciseResponse("Bicycle",1,3000,0);
 
         when(exerciseService.getAllExercises())
                 .thenReturn(Arrays.asList(exe1,exe2));
@@ -145,6 +145,55 @@ public class ExerciseControllerIntegrationTest {
 
         verify(exerciseService,times(1))
                 .getAllExercises();
+    }
+
+    @Test
+    @DisplayName("Test update an existing exercise")
+    void testUpdateExercise() throws Exception{
+        // we got these parameters to pass to UPDATE
+        String exe1 = "Dumbbell hammer curl";
+        ExerciseDto exerciseDto = new ExerciseDto("Dumbbell hammer curl",
+                3,20,7.5);
+
+        // this is the response that we get, we found this with de same name, we increase de weight
+        // from this exercise
+        ExerciseResponse exerciseResponse = new ExerciseResponse("Dumbbell hammer curl",
+                3,15,5);
+
+        when(exerciseService.updateExerciseByName(eq(exe1),
+                any(ExerciseDto.class)))
+                .thenReturn(exerciseResponse);
+
+        mockMvc.perform(put("/api/v1/exercise/{name}",exe1)
+                .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(exerciseDto)))
+                .andExpect(status().isOk());
+
+        verify(exerciseService,times(1))
+                .updateExerciseByName(eq(exe1),
+                        any(ExerciseDto.class));
+    }
+
+    @Test
+    @DisplayName("Test update a NOT existing exercise")
+    void testUpdateNotExistingExercise() throws Exception{
+        // we got these parameters to pass to UPDATE
+        String exe1 = "Press Bank";
+        ExerciseDto exerciseDto = new ExerciseDto("Press Bank",
+                3,20,7.5);
+
+        when(exerciseService.updateExerciseByName(eq(exe1),
+                any(ExerciseDto.class)))
+                .thenReturn(null);
+
+        mockMvc.perform(put("/api/v1/exercise/{name}",exe1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(exerciseDto)))
+                .andExpect(status().isNotFound());
+
+        verify(exerciseService,times(1))
+                .updateExerciseByName(eq(exe1),
+                        any(ExerciseDto.class));
     }
 
 
