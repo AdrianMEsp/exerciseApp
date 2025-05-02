@@ -11,6 +11,7 @@ public class ExerciseDto {
     private int series;
     private int repetitionsOrSeconds;
     private double weight;
+    private String description;
 
     public ExerciseDto() {
     }
@@ -20,5 +21,13 @@ public class ExerciseDto {
         this.series = series;
         this.repetitionsOrSeconds = repetitionsOrSeconds;
         this.weight = weight;
+    }
+
+    public ExerciseDto(String name, int series, int repetitionsOrSeconds, double weight, String description) {
+        this.name = name;
+        this.series = series;
+        this.repetitionsOrSeconds = repetitionsOrSeconds;
+        this.weight = weight;
+        this.description = description;
     }
 }

@@ -18,6 +18,7 @@ public class Exercise {
     private int series;
     private int repetitionsOrSeconds;
     private double weight;
+    private String description;
 
     public Exercise() {
     }
@@ -27,5 +28,13 @@ public class Exercise {
         this.series = series;
         this.repetitionsOrSeconds = repetitionsOrSeconds;
         this.weight = weight;
+    }
+
+    public Exercise(String name, int series, int repetitionsOrSeconds, double weight, String description) {
+        this.name = name;
+        this.series = series;
+        this.repetitionsOrSeconds = repetitionsOrSeconds;
+        this.weight = weight;
+        this.description = description;
     }
 }
