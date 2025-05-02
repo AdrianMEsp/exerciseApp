@@ -27,7 +27,8 @@ public class ExerciseServiceImpl implements ExerciseService {
         Exercise exercise = new Exercise(exerciseDto.getName(),
                 exerciseDto.getSeries(),
                 exerciseDto.getRepetitionsOrSeconds(),
-                exerciseDto.getWeight());
+                exerciseDto.getWeight(),
+                exerciseDto.getDescription());
         this.exerciseRepository.save(exercise);
     }
 
@@ -95,11 +96,15 @@ public class ExerciseServiceImpl implements ExerciseService {
 
 
     private ExerciseResponse mapToResponse(Exercise exercise){
+        if (exercise.getDescription() == null){
+            exercise.setDescription("");
+        }
         return new ExerciseResponse(
                 exercise.getName(),
                 exercise.getSeries(),
                 exercise.getRepetitionsOrSeconds(),
-                exercise.getWeight()
+                exercise.getWeight(),
+                exercise.getDescription()
         );
     }
 

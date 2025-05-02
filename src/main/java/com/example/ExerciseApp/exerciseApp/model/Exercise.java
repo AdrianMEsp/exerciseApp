@@ -23,6 +23,8 @@ public class Exercise {
     public Exercise() {
     }
 
+    //TODO: cambiar para que el constructor sea uno solo, que en caso de no recibir descripcion, cree una vacia
+    // eso hace que cambie tambien el ServiceImpl ya que no debo analizar si es null
     public Exercise(String name, int series, int repetitionsOrSeconds, double weight) {
         this.name = name;
         this.series = series;
