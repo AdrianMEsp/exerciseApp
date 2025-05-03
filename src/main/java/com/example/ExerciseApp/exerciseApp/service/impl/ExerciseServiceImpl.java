@@ -81,7 +81,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 
             found.setName(modifiedExercise.getName());
             found.setSeries(modifiedExercise.getSeries());
-            found.setRepetitionsOrSeconds(modifiedExercise.getRepetitionsOrSeconds());
+            found.setRepetitionsOrMinutes(modifiedExercise.getRepetitionsOrSeconds());
             found.setWeight(modifiedExercise.getWeight());
             this.exerciseRepository.save(found);
             return mapToResponse(found);
@@ -97,12 +97,12 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     private ExerciseResponse mapToResponse(Exercise exercise){
         if (exercise.getDescription() == null){
-            exercise.setDescription("");
+            exercise.setDescription(" ");
         }
         return new ExerciseResponse(
                 exercise.getName(),
                 exercise.getSeries(),
-                exercise.getRepetitionsOrSeconds(),
+                exercise.getRepetitionsOrMinutes(),
                 exercise.getWeight(),
                 exercise.getDescription()
         );

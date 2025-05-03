@@ -15,8 +15,8 @@ public class Exercise {
     private Long id;
 
     private String name;
-    private int series;
-    private int repetitionsOrSeconds;
+    private String series;
+    private int repetitionsOrMinutes;
     private double weight;
     private String description;
 
@@ -25,17 +25,17 @@ public class Exercise {
 
     //TODO: cambiar para que el constructor sea uno solo, que en caso de no recibir descripcion, cree una vacia
     // eso hace que cambie tambien el ServiceImpl ya que no debo analizar si es null
-    public Exercise(String name, int series, int repetitionsOrSeconds, double weight) {
+    public Exercise(String name, String series, int repetitionsOrMinutes, double weight) {
         this.name = name;
         this.series = series;
-        this.repetitionsOrSeconds = repetitionsOrSeconds;
+        this.repetitionsOrMinutes = repetitionsOrMinutes;
         this.weight = weight;
     }
 
-    public Exercise(String name, int series, int repetitionsOrSeconds, double weight, String description) {
+    public Exercise(String name, String series, int repetitionsOrMinutes, double weight, String description) {
         this.name = name;
         this.series = series;
-        this.repetitionsOrSeconds = repetitionsOrSeconds;
+        this.repetitionsOrMinutes = repetitionsOrMinutes;
         this.weight = weight;
         this.description = description;
     }

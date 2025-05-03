@@ -8,7 +8,7 @@ import lombok.ToString;
 @ToString
 public class ExerciseDto {
     private String name;
-    private int series;
+    private String series;
     private int repetitionsOrSeconds;
     private double weight;
     private String description;
@@ -16,14 +16,14 @@ public class ExerciseDto {
     public ExerciseDto() {
     }
 
-    public ExerciseDto(String name, int series, int repetitionsOrSeconds, double weight) {
+    public ExerciseDto(String name, String series, int repetitionsOrSeconds, double weight) {
         this.name = name;
         this.series = series;
         this.repetitionsOrSeconds = repetitionsOrSeconds;
         this.weight = weight;
     }
 
-    public ExerciseDto(String name, int series, int repetitionsOrSeconds, double weight, String description) {
+    public ExerciseDto(String name, String series, int repetitionsOrSeconds, double weight, String description) {
         this.name = name;
         this.series = series;
         this.repetitionsOrSeconds = repetitionsOrSeconds;
