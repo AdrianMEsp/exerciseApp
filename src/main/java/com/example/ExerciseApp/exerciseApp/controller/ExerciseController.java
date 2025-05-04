@@ -23,6 +23,7 @@ public class ExerciseController {
     public HttpStatus addExercise(@RequestBody ExerciseDto exerciseDto){
         try{
             exerciseService.addExercise(exerciseDto);
+            log.info("New exercise added");
             return HttpStatus.CREATED;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -34,11 +35,13 @@ public class ExerciseController {
         try{
             boolean deleted = this.exerciseService.deleteExerciseById(id);
             if (! deleted){
+                log.info("Exercise with id: {} not found ",id);
                 return ResponseEntity.notFound().build();
             }
             log.info("Exercise with id: {} deleted",id);
             return ResponseEntity.ok().build();
         } catch (ExerciseNotFoundId e) {
+
             throw new ExerciseNotFoundId(id);
         }
     }
@@ -48,6 +51,7 @@ public class ExerciseController {
         try{
             boolean deleted = this.exerciseService.deleteExerciseByName(name);
             if (! deleted){
+                log.info("Exercise with name: {} not found ",name);
                 return ResponseEntity.notFound().build();
             }
             log.info("Exercise {} deleted",name);
@@ -81,6 +85,7 @@ public class ExerciseController {
             throw e;
         }
     }
+
 
     @PutMapping("/{name}")
     public ResponseEntity<Void> updateExerciseByName(@PathVariable String name,

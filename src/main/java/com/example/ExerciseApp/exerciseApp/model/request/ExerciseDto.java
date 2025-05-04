@@ -9,24 +9,24 @@ import lombok.ToString;
 public class ExerciseDto {
     private String name;
     private String series;
-    private int repetitionsOrSeconds;
+    private int repetitionsOrMinutes;
     private double weight;
     private String description;
 
     public ExerciseDto() {
     }
 
-    public ExerciseDto(String name, String series, int repetitionsOrSeconds, double weight) {
+    public ExerciseDto(String name, String series, int repetitionsOrMinutes, double weight) {
         this.name = name;
         this.series = series;
-        this.repetitionsOrSeconds = repetitionsOrSeconds;
+        this.repetitionsOrMinutes = repetitionsOrMinutes;
         this.weight = weight;
     }
 
-    public ExerciseDto(String name, String series, int repetitionsOrSeconds, double weight, String description) {
+    public ExerciseDto(String name, String series, int repetitionsOrMinutes, double weight, String description) {
         this.name = name;
         this.series = series;
-        this.repetitionsOrSeconds = repetitionsOrSeconds;
+        this.repetitionsOrMinutes = repetitionsOrMinutes;
         this.weight = weight;
         this.description = description;
     }

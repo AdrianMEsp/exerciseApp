@@ -24,9 +24,10 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public void addExercise(ExerciseDto exerciseDto) {
-        Exercise exercise = new Exercise(exerciseDto.getName(),
+        Exercise exercise = new Exercise(
+                exerciseDto.getName(),
                 exerciseDto.getSeries(),
-                exerciseDto.getRepetitionsOrSeconds(),
+                exerciseDto.getRepetitionsOrMinutes(),
                 exerciseDto.getWeight(),
                 exerciseDto.getDescription());
         this.exerciseRepository.save(exercise);
@@ -50,7 +51,6 @@ public class ExerciseServiceImpl implements ExerciseService {
         }
         return false;
     }
-
 
     public Exercise getByName(String name){
         return this.exerciseRepository.findByNameIgnoreCase(name)
@@ -81,7 +81,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 
             found.setName(modifiedExercise.getName());
             found.setSeries(modifiedExercise.getSeries());
-            found.setRepetitionsOrMinutes(modifiedExercise.getRepetitionsOrSeconds());
+            found.setRepetitionsOrMinutes(modifiedExercise.getRepetitionsOrMinutes());
             found.setWeight(modifiedExercise.getWeight());
             this.exerciseRepository.save(found);
             return mapToResponse(found);
